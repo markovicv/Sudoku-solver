@@ -1,14 +1,3 @@
-sudoku_board = [
-    [7,8,0,4,0,0,1,2,0],
-    [6,0,0,0,7,5,0,0,9],
-    [0,0,0,6,0,1,0,7,8],
-    [0,0,7,0,4,0,2,6,0],
-    [0,0,1,0,5,0,9,3,0],
-    [9,0,4,0,6,0,0,0,5],
-    [0,7,0,3,0,0,0,1,2],
-    [1,2,0,0,0,7,4,0,0],
-    [0,4,9,2,0,6,0,0,7]
-]
 
 def print_board(board):
     for i in range(len(board)):
@@ -34,18 +23,36 @@ def is_column_valid(board,column,number):
 def get_empty_square(board):
     for i in range(len(board)):
         for j in range(len(board[0])):
-            if board[row][col]==0:
+            if board[i][j]==0:
                 return (i,j)
     return None
+# checks if the 3x3 square doesnt contain a given number
+def is_box_valid(board,row,column,number):
+    # gets the x and y position of the 3x3 square
+    row_offset = row//3
+    column_offset = column//3
+
+    # loops through 3x3 square
+    for i in range(row_offset*3,row_offset*3+3):
+        for j in range(column_offset*3,column_offset*3+3):
+            if board[i][j] == number:
+                return False
+    return True
+
+
+# algorithm for solving sudoku
 
 def backtrack(board):
-    empty_square = get_empty_square(board):
-    if not empty_square:
+    # gets the first empty square
+    empty_square = get_empty_square(board)
+    # if all squares are not empty our board is solved
+    if empty_square == None:
         return True
     row = empty_square[0]
     column = empty_square[1]
 
-    for i in range(10):
+    # checks every number from 1 to 9 if it fits for the given square
+    for i in range(1,10):
         if is_row_valid(board,row,i) and is_column_valid(board,column,i) and is_box_valid(board,row,column,i):
             board[row][column] = i
             if backtrack(board):
@@ -53,4 +60,17 @@ def backtrack(board):
             board[row][column] = 0
 
     return False
+
+# reads from file into a 2D board
+def read_from_file(board):
+    file  = open("testCase.txt","r")
+    for line in file.readlines():
+        board.append([int(num)for num in line.split(",")])
+
+
+board = []
+read_from_file(board)
+backtrack(board)
+print_board(board)
+    
 
