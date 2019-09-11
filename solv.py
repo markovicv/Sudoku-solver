@@ -16,4 +16,41 @@ def print_board(board):
             print(board[i][j],end=" ")
         print("")
 
-print_board(sudoku_board)
+# checks if a given row contains the given number,if it contains the function returns False
+def is_row_valid(board,row,number):
+    for i in range(len(board)):
+        if board[row][i] == number:
+            return False
+    return True
+
+# checks if a given colum contains the given number,if it contains the function returns Flase
+def is_column_valid(board,column,number):
+    for i in range(len(board)):
+        if board[i][column] == number:
+            return False
+    return True
+
+# returns first empty square
+def get_empty_square(board):
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            if board[row][col]==0:
+                return (i,j)
+    return None
+
+def backtrack(board):
+    empty_square = get_empty_square(board):
+    if not empty_square:
+        return True
+    row = empty_square[0]
+    column = empty_square[1]
+
+    for i in range(10):
+        if is_row_valid(board,row,i) and is_column_valid(board,column,i) and is_box_valid(board,row,column,i):
+            board[row][column] = i
+            if backtrack(board):
+                return True
+            board[row][column] = 0
+
+    return False
+
