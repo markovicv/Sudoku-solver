@@ -1,7 +1,7 @@
 # Sudoku-solver
 
 ### Project overview
-Reads sudoku board from a file and solves it using backtracking algorithm<br/>
+Reads sudoku board from a file and solves it using a backtracking algorithm<br/>
 
 ### Algorithm
 Backtracking algorithms solv problems by recursively trying to build a solution one piece at a time. Solutions that do not satisfy the rules and constraints are removed<br/>
