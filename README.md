@@ -12,3 +12,4 @@ Backtracking algorithms solv problems by recursively trying to build a solution 
 - Hamiltonian Cycle
 - Rat in a Maze
 
+**Note: numbers inside a file must be separated by comma (,) for the program to be runned successfuly**
